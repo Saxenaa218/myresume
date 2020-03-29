@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>word correction</title>
+	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+	<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/antd/3.16.4/antd.min.js"></script> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.16.4/antd.min.css"></link>
+	<link rel="stylesheet" href="/static/css/app.css"></link>
+</head>
+<body>
+	<div id='root' class="height-inherit"></div>
+	{% raw %}
+	<script type='text/babel'>
+		const { Button, Menu, Icon, Row, Col } = antd;
+		class App extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = {
+					code: "",
+				};
+				this.copyElem = React.createRef();
+			}
+			
+			render() {
+				return (
+				<div className = "height-inherit">
+					<Row className = "height-inherit">
+						<Col span={7}></Col>
+						<Col span={10} style={{height: 'inherit'}}>
+							<div className = "main-container">
+								<p>Google</p>
+								<p className="sign-in">Sign in</p>
+								<p>Please copy this code, switch to your application and paste it there:</p>
+								<Row>
+									<Col span={18}>
+										<p ref={this.copyElem}>Hello!!!!!!!</p>
+									</Col>
+									<Col span={2} offset={4}><Button shape="circle" icon="copy" onClick={(evt) => {
+										let copyText = this.copyElem.current;
+										let elem = document.createElement("textarea");
+										document.body.appendChild(elem);
+										elem.value = copyText.innerText;
+										elem.select();
+										document.execCommand("copy");
+										document.body.removeChild(elem)
+									}} /></Col>
+								</Row>
+							</div>
+						</Col>
+						<Col span={7}></Col>
+					</Row>
+				</div>
+				
+				);
+			}
+		}
+		ReactDOM.render(<App />, document.querySelector('#root'));
+	</script>
+	{% endraw %}
+</script>
+</body>
+</html>
